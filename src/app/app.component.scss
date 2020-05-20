@@ -1,0 +1,64 @@
+.beforeStart {
+  height: 100%;
+  background: #3e444a;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+
+  h1 {
+    color: #ffffff;
+  }
+
+  .players {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+}
+:host ::ng-deep {
+  .tabs {
+    background: #3e444a;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 100%;
+    ul {
+      padding-bottom: 40px;
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      justify-content: space-around !important;
+      .nav-link.active {
+        background: none !important;
+      }
+    }
+    .tab-content {
+      padding: 30px 0;
+      max-height: 80vh;
+      overflow-y: scroll;
+
+      table {
+        tbody {
+          tr {
+            td {
+              &:last-child {
+                display: flex;
+                align-items: center;
+                justify-content: flex-end;
+
+                &.checked {
+                  opacity: 0.2;
+                }
+              }
+
+              span {
+                font-size: 100% !important;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

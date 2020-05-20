@@ -1,0 +1,78 @@
+<div *ngIf="!currentPlayer" class="beforeStart">
+  <h1>Pick your name</h1>
+  <div class="players">
+    <button
+      *ngFor="let player of playersData | keyvalue"
+      class="btn btn-success my-4 py-2 font-weight-bold text-capitalize"
+      (click)="removePlayer(player.key)"
+    >
+      {{ player.key }}
+    </button>
+  </div>
+</div>
+<ngb-tabset *ngIf="currentPlayer" type="pills" class="tabs">
+  <ngb-tab *ngFor="let category of data | keyvalue">
+    <ng-template ngbTabTitle>
+      <button class="btn btn-primary text-capitalize">
+        {{ category.key }}
+      </button>
+    </ng-template>
+    <ng-template ngbTabContent>
+      <table class="table table-striped table-dark">
+        <thead>
+          <tr>
+            <th
+              scope="col"
+              *ngFor="let player of playersData | keyvalue"
+              class="text-capitalize"
+            >
+              {{ player.key }}
+            </th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of category.value">
+            <td *ngFor="let player of playersData | keyvalue">
+              <fa-icon
+                [icon]="faMinus"
+                [styles]="{ color: '#dc3545' }"
+                (click)="
+                  player.value[item.value] = player.value[item.value] - 1
+                "
+              ></fa-icon>
+              <span
+                class="mx-2"
+                [ngClass]="{
+                  'badge badge-pill badge-warning ':
+                    player.value[item.value] > 5
+                }"
+                >{{ player.value[item.value] }}</span
+              >
+              <fa-icon
+                [icon]="faPlus"
+                [styles]="{ color: '#007bff' }"
+                (click)="
+                  player.value[item.value] = player.value[item.value] + 1
+                "
+              ></fa-icon>
+            </td>
+
+            <td [ngClass]="{ checked: item.checked }">
+              <label [for]="item.value" class="text-right">{{
+                item.value
+              }}</label>
+              <input
+                class="ml-2"
+                type="checkbox"
+                [(ngModel)]="item.checked"
+                [id]="item.value"
+                [checked]="item.checked"
+              />
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </ng-template>
+  </ngb-tab>
+</ngb-tabset>
